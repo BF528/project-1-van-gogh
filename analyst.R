@@ -59,7 +59,7 @@ welch_t_test<-function(data_frame, file_name) {
   for (row in 1:nrow(data_frame)) {
     # Perform a Welch t-test for cluster1 and cluster2
     welch<-t.test(cluster1[row,], cluster2[row,])
-    # Create a list of dataframes with the columns 't', 'p' and 'padj'
+    # Create a list of dataframes with the columns 't', 'p' 
     t_test[[row]]<-data.frame(t=welch$statistic, p=welch$p.value)
   }
   
@@ -67,17 +67,18 @@ welch_t_test<-function(data_frame, file_name) {
   t_test<-do.call(rbind, t_test)
   # Set the gene names as the row names
   row.names(t_test)<-row.names(data_frame)
+  # Get padjust
   t_test$padj<-p.adjust(t_test$p, method='fdr')
   # Write out to a comma separated file 
   write.csv(t_test, file_name)
   
+  # Print statements
   padj_0.05<-subset(t_test, padj < 0.05)
   padj_0.05<-padj_0.05[order(padj_0.05$padj),]
-  padj_genes<-rownames(subset(padj_0.05, padj < 1e-5))
   print(paste0('Number of genes differentially expressed at padj < 0.05 between the clusters: ', nrow(padj_0.05)))
   print('The most differentially expressed genes that best defines each cluster were determined by the criteria supplied by the supplementary: adjusted p-value < 1e-5 and |log2 fold change| > 0.5')
-  print('The top 5 differentially expressed genes that best defines cluster 1 based on adjusted p-value < 1e-5 are: ')
-  print(paste0(head(intersect(padj_genes, rownames(cluster1)))))
+  print('The top differentially expressed genes based on adjusted p-value < 1e-5 are: ')
+  print(paste0(head(rownames(subset(padj_0.05, padj < 1e-5)))))
 }
 
 # Perform the t-test analysis
