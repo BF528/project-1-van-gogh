@@ -92,7 +92,7 @@ welch_t_test(chi_filter, '/projectnb/bf528/users/van-gogh/project_1/data/differe
 metadata <- read.csv('/project/bf528/project_1/doc/proj_metadata.csv')
 metadata <- subset(metadata, select = c(geo_accession, cit.coloncancermolecularsubtype))
 metadata <- metadata[metadata$geo_accession %in% colnames(variation_filter),]
-colors <- ifelse(metadata$cit.coloncancermolecularsubtype == 'C3', 'blue', 'red')
+colors <- ifelse(metadata$cit.coloncancermolecularsubtype == 'C3', 'red', 'blue')
 
 # Save heatmap as a file
 png('/projectnb/bf528/users/van-gogh/project_1/data/heatmap.png', width=1920, height=1080, res=100)
