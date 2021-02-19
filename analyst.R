@@ -71,7 +71,13 @@ welch_t_test<-function(data_frame, file_name) {
   # Write out to a comma separated file 
   write.csv(t_test, file_name)
   
-  print(paste0('Number of genes differentially expressed at padj < 0.05 between the clusters: ', nrow(subset(t_test, padj < 0.05))))
+  padj_0.05<-subset(t_test, padj < 0.05)
+  padj_0.05<-padj_0.05[order(padj_0.05$padj),]
+  padj_genes<-rownames(subset(padj_0.05, padj < 1e-5))
+  print(paste0('Number of genes differentially expressed at padj < 0.05 between the clusters: ', nrow(padj_0.05)))
+  print('The most differentially expressed genes that best defines each cluster were determined by the criteria supplied by the supplementary: adjusted p-value < 1e-5 and |log2 fold change| > 0.5')
+  print('The top 5 differentially expressed genes that best defines cluster 1 based on adjusted p-value < 1e-5 are: ')
+  print(paste0(head(intersect(padj_genes, rownames(cluster1)))))
 }
 
 # Perform the t-test analysis
