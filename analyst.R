@@ -10,13 +10,14 @@ data<-data.frame(read.csv('/project/bf528/project_1/data/example_intensity_data.
 expressed_filter<-data[rowSums(data > log2(15)) >= (0.2*ncol(data)), ]
 
 # 2) Have a variance significantly different from the median variance of all probe sets using a threshold of p < 0.01
-# Perform an upper one-tailed alternative
+# Perform a two-tailed alternative
 df<-ncol(expressed_filter)-1
-chi_sq_upper<-qchisq(1-0.01, df, lower.tail=FALSE)
+chi_sq_lower<-qchisq(0.01/2, df)
+chi_sq_upper<-qchisq(1-0.01/2, df)
 # Compute the test statistic for each gene: T = (N-1)(s/o)**2 where df=N-1, variance=s, median variance=o
 expressed_filter$variance <- apply(expressed_filter, 1, var)
 expressed_filter$test_stat <- df*expressed_filter$variance/median(expressed_filter$variance)
-chi_filter<-subset(expressed_filter, test_stat > chi_sq_upper)
+chi_filter<-subset(expressed_filter, test_stat > chi_sq_upper | test_stat < chi_sq_lower)
 # Remove extra columns to write out to a file
 chi_filter<-subset(chi_filter, select = -c(variance, test_stat))
 
