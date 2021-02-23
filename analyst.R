@@ -75,11 +75,10 @@ welch_t_test<-function(data_frame, file_name) {
   
   # Print statements
   padj_0.05<-subset(t_test, padj < 0.05)
-  padj_0.05<-padj_0.05[order(padj_0.05$padj),]
   print(paste0('Number of genes differentially expressed at padj < 0.05 between the clusters: ', nrow(padj_0.05)))
-  print('The most differentially expressed genes that best defines each cluster were determined by the criteria supplied by the supplementary: adjusted p-value < 1e-5 and |log2 fold change| > 0.5')
-  print('The top differentially expressed genes based on adjusted p-value < 1e-5 are: ')
-  print(paste0(head(rownames(subset(padj_0.05, padj < 1e-5)))))
+  print('The most differentially expressed genes that best defines each cluster were determined by t-test')
+  print('The top genes with the largest differences in the clusters are: ')
+  print(paste0(head(rownames(t_test[rev(order(abs(t_test$t))),]))))
 }
 
 # Perform the t-test analysis
@@ -105,5 +104,5 @@ heatmap.2(as.matrix(variation_filter), xlab='Patient Sample', ylab='Gene',
 
 # Legend for Molecular Subtype
 legend(x=0.9, y=1, xpd=TRUE, inset=c(-0.15,0),
-       legend=c('C3', 'Other'), title='Molecular Subtype', fill=c('blue', 'red'))
+       legend=c('C3', 'Other'), title='Molecular Subtype', fill=c('red', 'blue'))
 dev.off()
