@@ -3,7 +3,7 @@
 A brief description of what this repository is for and what it contains
 
 # Contributors
-* Data Curator: Monil Gandhi 
+* Data Curator: Monil Gandhi (@gandhimonil9823)
 * Programmer: Lindsay Wang (@LindsayW007)
 * Analyst: Elysha Sameth (@esameth)
 * Biologist: Andrew Gjelsteen (@agjelste)
