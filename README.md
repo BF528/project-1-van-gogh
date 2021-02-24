@@ -1,6 +1,7 @@
 # Project Description
 
 This analysis focuses only on reproducing the results from the comparison of the C3 and C4 tumor subtypes from Marisa, et al. The study was conducted in a two-phase design, where an initial set of “discovery” samples was used to identify patterns among the samples, and a separate set of “validation” samples was used to test if the results from the discovery set were robust. For this analysis, we have combined the discover and validation set samples into a single dataset. There are 134 samples in total.  
+
 In the reproduction of the Marisa, et al. study, we retrieved gene expression values from GEO, normalized and conducted gene quality analysis, performed hierarchical clustering of samples, and determined significantly enriched gene sets.
 
 # Contributors
