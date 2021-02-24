@@ -24,3 +24,11 @@ To run this, use the command R analyst.R
 * Performs unsupervised hierarchical clustering of C3 and C4 tumor subtypes
 * Writes the results of Welch's t-test between the clusters and their p-values and FDR adjusted p-values to `all_filters_t_test.csv` (all three filters) and `differential_filter_t_test.csv` (filter two only)
 * Outputs a heatmap 
+
+## Biologist
+### biologistScript.R
+To run this, use the command R biologistScript.R while in the same directory as the differential_filter_t_test.csv as well as KEGG, GO and Hallmark gene set .gmt files.
+
+* Reads in differential_filter_t_test.csv created by analyst.R
+* Matches gene symbols to corresponding probe IDs using hgu133plus2.db and adds symbols to differential_filter_t_test.csv as a new column
+* 
